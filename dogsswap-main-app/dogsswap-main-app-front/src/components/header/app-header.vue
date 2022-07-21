@@ -2,13 +2,7 @@
 <div class="app-header">
   <div class="flex justify-between q-pa-sm items-center">
     <div class="flex items-center">
-      <q-img
-        contain
-        width="40px"
-        height="40px"
-        :src="dogeLogo"
-      />
-      <h1 class="doge-font text-h4" style="margin-left: -9px">{{ siteTitle }}</h1>
+      <h1 class="doge-font text-h4 text-white-shadow" >{{ siteTitle }}</h1>
     </div>
 
     <app-header-menu v-if="!$mobile"/>
@@ -18,7 +12,7 @@
 </template>
 
 <script>
-import dogeLogo from 'src/assets/doge.png'
+import dogeLogo from 'src/assets/doge2.png'
 import { mapState } from 'vuex'
 import WalletConnectHeaderBtn from 'components/wallet/wallet-connect/wallet-connect-header-btn'
 import AppHeaderMenu from 'components/header/app-header-menu'

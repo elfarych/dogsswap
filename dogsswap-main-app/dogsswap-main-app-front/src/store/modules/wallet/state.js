@@ -1,5 +1,7 @@
 export default function () {
   return {
-    siteTitle: 'DogsDEX'
+    wallet: {
+      address: 'null'
+    }
   }
 }
