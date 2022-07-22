@@ -8,11 +8,12 @@
           :src="coin1.logo"
           class="swap-coins-coin-logo"
           contain
+          @click="coinSelectDialog = !coinSelectDialog"
         >
           <template v-slot:loading></template>
         </q-img>
         <div class="text-subtitle1 text-extra-bold q-ml-sm">{{ coin1.name }}</div>
-        <!--      <q-icon name="arrow_drop_down"/>-->
+              <q-icon name="arrow_drop_down"/>
       </q-btn>
 
       <q-btn
@@ -62,7 +63,14 @@
 <!--    Coin 2-->
     <div class="row items-center justify-between">
       <div class="col-8">
-        <q-btn class="q-px-xs col-4" dense flat rounded no-caps>
+        <q-btn
+          class="q-px-xs col-4"
+          dense
+          flat
+          rounded
+          no-caps
+          @click="coinSelectDialog = !coinSelectDialog"
+        >
           <q-img
             :src="coin2.logo"
             class="swap-coins-coin-logo"
@@ -71,7 +79,7 @@
             <template v-slot:loading></template>
           </q-img>
           <div class="text-subtitle1 text-extra-bold q-ml-sm">{{ coin2.name }}</div>
-          <!--      <q-icon name="arrow_drop_down"/>-->
+                <q-icon name="arrow_drop_down"/>
         </q-btn>
       </div>
 
@@ -122,10 +130,48 @@
         class="swap-button doge-font text-h6 q-py-sm full-width"
       />
     </div>
+
+<!--    Coin Select Dialog-->
+    <q-dialog v-model="coinSelectDialog">
+      <q-card style="width: 450px; max-width: 100%; height: 530px">
+        <q-toolbar class="justify-between">
+          <div class="text-subtitle1 text-extra-bold">Select coin</div>
+          <q-btn icon="close" dense flat v-close-popup round/>
+        </q-toolbar>
+
+        <q-card-section>
+          <q-scroll-area style="height: 430px">
+            <q-list separator>
+              <q-item
+                v-for="coin in coins"
+                :key="coin.name"
+                class="relative-position"
+                clickable
+                :disable="coin.isComingSun || coin.name === coin1.name || coin.name === coin2.name"
+              >
+                <q-item-section avatar>
+                  <q-img :src="coin.logo"/>
+                </q-item-section>
+                <q-item-section class="flex justify-between full-width">
+                  <div>
+                    <div class="text-extra-bold">{{ coin.name }}</div>
+                    <small>{{ coin.label }}</small>
+                  </div>
+                  <small v-if="coin.balance && !coin.isComingSun" class="text-extra-bold absolute-bottom-right text-grey-5">{{ coin.balance | numberFormatter }}</small>
+                  <div v-if="coin.isComingSun" class="absolute-bottom-right"><q-chip>Coming sun</q-chip></div>
+                </q-item-section>
+
+              </q-item>
+            </q-list>
+          </q-scroll-area>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import numberFormatter from 'src/utils/number-formatter'
 import coins from 'components/swap/coins'
 import { mapState } from 'vuex'
 
@@ -137,8 +183,12 @@ export default {
       return coins
     }
   },
+  filters: {
+    numberFormatter
+  },
   data () {
     return {
+      coinSelectDialog: true,
       coin1: null,
       coin2: null,
       firstCoinQty: 1,
@@ -182,4 +232,7 @@ export default {
 
 .q-field--dark .q-field__control:before
   border-color: rgba(255, 255, 255, 0.1)
+
+.q-dialog__inner > div
+  border-radius: 24px !important
 </style>

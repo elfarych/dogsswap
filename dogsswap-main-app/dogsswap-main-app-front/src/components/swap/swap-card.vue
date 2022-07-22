@@ -66,7 +66,7 @@ export default {
 
 <style lang="sass">
 .swap-card
-  height: 70vh
+  height: 530px
   width: 450px
   max-width: 88%
   background: rgba(39, 38, 44, 0.5)
