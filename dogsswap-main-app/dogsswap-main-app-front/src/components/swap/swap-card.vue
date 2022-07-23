@@ -1,39 +1,40 @@
 <template>
-<div class="swap-card q-px-md">
-  <div class="absolute-top-right q-pa-md">
-    <q-slide-transition transition-show="">
+  <div class="swap-card q-px-md">
+    <div class="absolute-top-right q-pa-md">
+      <q-slide-transition transition-show="">
+        <q-btn
+          v-if="!settingsMode"
+          icon="history"
+          dense
+          flat
+          round
+          class="q-mr-xs"
+          @click="showHistory"
+        />
+      </q-slide-transition>
+
       <q-btn
-        v-if="!settingsMode"
-        icon="history"
         dense
         flat
         round
-        class="q-mr-xs"
-        @click="showHistory"
+        :icon="settingsMode ? 'close' : 'settings'"
+        @click="settingsMode = !settingsMode"
       />
-    </q-slide-transition>
+    </div>
 
-    <q-btn
-      dense
-      flat
-      round
-      :icon="settingsMode ? 'close' : 'settings'"
-      @click="settingsMode = !settingsMode"
-    />
-  </div>
+    <div>
+      <div class="text-center text-extra-bold q-mt-md text-h5">{{ settingsMode ? 'Settings' : 'Swap' }}</div>
+    </div>
 
-  <div>
-    <div class="text-center text-extra-bold q-mt-md text-h5">{{ settingsMode ? 'Settings' : 'Swap' }}</div>
-  </div>
+    <div v-show="settingsMode">
+      <swap-settings/>
+    </div>
 
-  <div v-if="settingsMode">
-    <swap-settings />
-  </div>
-  <div v-else class="q-mt-xl">
-    <swap-coins />
-  </div>
+    <div v-show="!settingsMode" class="q-mt-xl">
+      <swap-coins/>
+    </div>
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +43,7 @@ import walletConnect from 'components/wallet/wallet-connect/wallet-connect'
 import { mapState } from 'vuex'
 import notifier from 'src/utils/notifier'
 import SwapCoins from 'components/swap/swap-coins'
+
 export default {
   name: 'swap-card',
   components: { SwapCoins, SwapSettings },

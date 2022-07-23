@@ -5,6 +5,9 @@
       <router-view />
     </q-page-container>
 
+    <div class="text-grey-5 text-center q-py-md">
+      DogsDEX Smart Chain dApp 2022. All right reserved.
+    </div>
   </q-layout>
 </template>
 

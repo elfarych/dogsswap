@@ -1,5 +1,5 @@
 <template>
-<div class="app-header-menu flex items-center">
+<div class="app-header-menu flex items-center justify-center ">
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
@@ -24,13 +24,6 @@
     <q-item-section>Farm</q-item-section>
   </q-item>
 
-  <q-item
-    class="text-subtitle2 text-bold rounded-xl"
-    clickable
-    to="/cryptobox"
-  >
-    <q-item-section>Cryptobox</q-item-section>
-  </q-item>
 <!--  <q-btn-->
 <!--    label="Earn"-->
 <!--    no-caps-->

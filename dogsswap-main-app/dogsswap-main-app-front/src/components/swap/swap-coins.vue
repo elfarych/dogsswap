@@ -1,19 +1,24 @@
 <template>
-  <div class="swap-coins">
+  <div class="swap-coins q-pt-md">
 
 <!--    Coin 1-->
     <div class="flex items-center justify-between">
-      <q-btn class="q-px-xs" dense flat rounded no-caps>
+      <q-btn
+        class="q-px-xs"
+        dense
+        flat
+        rounded
+        no-caps
+      >
         <q-img
           :src="coin1.logo"
           class="swap-coins-coin-logo"
           contain
-          @click="coinSelectDialog = !coinSelectDialog"
         >
           <template v-slot:loading></template>
         </q-img>
         <div class="text-subtitle1 text-extra-bold q-ml-sm">{{ coin1.name }}</div>
-              <q-icon name="arrow_drop_down"/>
+<!--              <q-icon name="arrow_drop_down"/>-->
       </q-btn>
 
       <q-btn
@@ -22,6 +27,7 @@
         color="accent"
         outline
         size="sm"
+        @click="setMax"
       />
     </div>
 
@@ -32,36 +38,25 @@
         outlined
         input-class="text-center text-extra-bold text-h6"
         type="number"
-      />
+      >
+        <template v-slot:label>
+          <div class="flex justify-between">
+            <div>{{ coin1.label }}</div>
+            <div>$ {{ price }}</div>
+          </div>
+        </template>
+      </q-input>
     </div>
 
     <div class="row q-px-sm">
-      <div class="col-4">
-        <small>{{ firstCoinBalance }}</small>
-      </div>
-      <div class="col-4 text-center">
-
-      </div>
-      <div class="col-4 text-right">
-        <small>~{{ usdSum }}$</small>
+      <div class="col-12">
+        <small v-if="wallet.address">Balance: {{ dogsBalance | numberFormatter }} DOGS</small>
       </div>
 
-    </div>
-
-<!--    reboot-->
-    <div class="text-center">
-      <q-btn
-        icon="import_export"
-        color="primary"
-        flat
-        round
-        style="margin-top: -1px"
-        @click="tokensRestore"
-      />
     </div>
 
 <!--    Coin 2-->
-    <div class="row items-center justify-between">
+    <div class="row items-center justify-between q-mt-md">
       <div class="col-8">
         <q-btn
           class="q-px-xs col-4"
@@ -83,39 +78,23 @@
         </q-btn>
       </div>
 
-      <div class="col-3 text-right">
-        <q-btn
-          label="max"
-          rounded
-          color="accent"
-          outline
-          size="sm"
-        />
-      </div>
-
     </div>
 
     <div class="q-mt-xs">
       <q-input
-        v-model="firstCoinQty"
+        v-model="secondCoinQty"
         :label="coin2.label"
         outlined
+        disable
         input-class="text-center text-extra-bold text-h6"
         type="number"
       />
     </div>
 
     <div class="row q-px-sm">
-      <div class="col-4">
-        <small>{{ firstCoinBalance }}</small>
+      <div class="col-12">
+        <small v-if="getBalance(coin2.name) > 0">Balance: {{ getBalance(coin2.name) }} {{ coin2.name }}</small>
       </div>
-      <div class="col-4 text-center">
-
-      </div>
-      <div class="col-4 text-right">
-        <small>~{{ usdSum }}$</small>
-      </div>
-
     </div>
 
 <!--    Swap-->
@@ -128,11 +107,12 @@
         unelevated
         no-caps
         class="swap-button doge-font text-h6 q-py-sm full-width"
+        @click="swapBtnHandler"
       />
     </div>
 
 <!--    Coin Select Dialog-->
-    <q-dialog v-model="coinSelectDialog">
+    <q-dialog v-model="coinSelectDialog" seamless>
       <q-card style="width: 450px; max-width: 100%; height: 530px">
         <q-toolbar class="justify-between">
           <div class="text-subtitle1 text-extra-bold">Select coin</div>
@@ -147,10 +127,11 @@
                 :key="coin.name"
                 class="relative-position"
                 clickable
-                :disable="coin.isComingSun || coin.name === coin1.name || coin.name === coin2.name"
+                :disable="coin.name === coin1.name || coin.name === coin2.name || coin.isComingSun"
+                @click="setCoin2(coin)"
               >
                 <q-item-section avatar>
-                  <q-img :src="coin.logo"/>
+                  <q-img :src="coin.logo" contain width="30px" height="30px"/>
                 </q-item-section>
                 <q-item-section class="flex justify-between full-width">
                   <div>
@@ -158,7 +139,7 @@
                     <small>{{ coin.label }}</small>
                   </div>
                   <small v-if="coin.balance && !coin.isComingSun" class="text-extra-bold absolute-bottom-right text-grey-5">{{ coin.balance | numberFormatter }}</small>
-                  <div v-if="coin.isComingSun" class="absolute-bottom-right"><q-chip>Coming sun</q-chip></div>
+                  <div v-if="coin.isComingSun" class="absolute-bottom-right"><q-chip color="accent" class="glossy">Coming sun</q-chip></div>
                 </q-item-section>
 
               </q-item>
@@ -173,14 +154,19 @@
 <script>
 import numberFormatter from 'src/utils/number-formatter'
 import coins from 'components/swap/coins'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import onboard from 'components/wallet/wallet-connect/onboard-connect'
 
 export default {
   name: 'swap-coins',
   computed: {
-    ...mapState('wallet', ['wallet']),
+    ...mapState('wallet', ['wallet', 'dogeBalance', 'dogsBalance', 'dogsPrice', 'busdBalance', 'usdtBalance', 'usdcBalance']),
     coins () {
       return coins
+    },
+    price () {
+      const price = this.dogsPrice
+      return numberFormatter(price)
     }
   },
   filters: {
@@ -188,10 +174,11 @@ export default {
   },
   data () {
     return {
-      coinSelectDialog: true,
+      coinSelectDialog: false,
       coin1: null,
       coin2: null,
       firstCoinQty: 1,
+      secondCoinQty: 1,
       firstCoinBalance: '410,306,257,565,823',
       usdSum: 155
     }
@@ -201,16 +188,62 @@ export default {
     this.coin2 = coins[1]
   },
   methods: {
-    tokensRestore () {
-      const coin1 = this.coin1
-      const coin2 = this.coin2
-      this.coin1 = coin2
-      this.coin2 = coin1
+    ...mapActions('wallet', ['setWallet', 'swapMyToken']),
+    swapBtnHandler () {
+      if (this.wallet.address) {
+        this.swapMyToken(this.coin2.name)
+      } else {
+        this.connectWallet()
+      }
+    },
+    getBalance (coinName) {
+      if (!this.wallet.address) return ''
+      if (coinName === 'DOGS') {
+        return numberFormatter(this.dogsBalance)
+      }
+      if (coinName === 'DOGE') {
+        return numberFormatter(this.dogeBalance)
+      }
+      if (coinName === 'BUSD') {
+        return numberFormatter(this.busdBalance)
+      }
+      if (coinName === 'USDT') {
+        return numberFormatter(this.usdtBalance)
+      }
+      if (coinName === 'USDC') {
+        return numberFormatter(this.usdcBalance)
+      }
+    },
+    setMax () {
+      if (!this.wallet.address) {
+        return this.connectWallet()
+      }
+      this.firstCoinQty = this.dogsBalance
+    },
+    connectWallet () {
+      onboard.connectWallet().then(async (wallet) => {
+        if (wallet && wallet.length) {
+          await this.setWallet(wallet)
+        } else {
+          this.dialog = true
+        }
+      })
+    },
+    setCoin2 (coin) {
+      this.coin2 = coin
+      this.coinSelectDialog = false
     }
   },
   watch: {
     firstCoinQty (val) {
       if (val < 1) this.firstCoinQty = 1
+      if (val > 3500) this.firstCoinQty = 3500
+      if (this.coin2.name === 'DOGE') this.secondCoinQty = val
+      if (this.coin2.name !== 'DOGE') this.secondCoinQty = numberFormatter(val * this.dogsPrice)
+    },
+    coin2 () {
+      if (this.coin2.name === 'DOGE') this.secondCoinQty = this.firstCoinQty
+      if (this.coin2.name !== 'DOGE') this.secondCoinQty = numberFormatter(this.firstCoinQty * this.dogsPrice)
     }
   }
 }
