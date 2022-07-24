@@ -161,7 +161,6 @@ export default {
   },
   watch: {
     async interval () {
-      debugger
       await this.setChartCandlesData()
     }
   }

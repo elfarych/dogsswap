@@ -1,6 +1,6 @@
 <template>
   <div class="swap-card q-px-md">
-    <div class="absolute-top-left q-pa-md">
+    <div v-if="$mobile" class="absolute-top-left q-pa-md">
       <q-btn
         dense
         flat
