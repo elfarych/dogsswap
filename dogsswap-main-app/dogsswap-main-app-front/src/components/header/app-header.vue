@@ -18,6 +18,10 @@
       </div>
     </div>
 
+    <div v-if="$mobile" class="col-12 text-center q-mt-sm">
+      <app-header-menu />
+    </div>
+
   </div>
 </div>
 </template>

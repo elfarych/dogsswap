@@ -106,7 +106,7 @@
         :outline="!wallet.address"
         unelevated
         no-caps
-        class="swap-button doge-font text-h6 q-py-sm full-width"
+        class="swap-button text-extra-bold text-h6 q-py-sm full-width"
         @click="swapBtnHandler"
       />
     </div>
@@ -160,7 +160,7 @@ import onboard from 'components/wallet/wallet-connect/onboard-connect'
 export default {
   name: 'swap-coins',
   computed: {
-    ...mapState('wallet', ['wallet', 'dogeBalance', 'dogsBalance', 'dogsPrice', 'busdBalance', 'usdtBalance', 'usdcBalance']),
+    ...mapState('wallet', ['wallet', 'defaultSwapCoin', 'dogeBalance', 'dogsBalance', 'dogsPrice', 'busdBalance', 'usdtBalance', 'usdcBalance']),
     coins () {
       return coins
     },
@@ -185,7 +185,7 @@ export default {
   },
   created () {
     this.coin1 = coins[0]
-    this.coin2 = coins[1]
+    this.coin2 = coins.find(item => item.name === this.defaultSwapCoin)
   },
   methods: {
     ...mapActions('wallet', ['setWallet', 'swapMyToken']),
@@ -244,6 +244,9 @@ export default {
     coin2 () {
       if (this.coin2.name === 'DOGE') this.secondCoinQty = this.firstCoinQty
       if (this.coin2.name !== 'DOGE') this.secondCoinQty = numberFormatter(this.firstCoinQty * this.dogsPrice)
+    },
+    defaultSwapCoin () {
+      this.coin2 = coins.find(item => item.name === this.defaultSwapCoin)
     }
   }
 }

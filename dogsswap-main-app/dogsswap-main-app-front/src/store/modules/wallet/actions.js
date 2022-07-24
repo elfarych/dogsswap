@@ -25,10 +25,11 @@ export async function setWallet ({ commit, dispatch }, connectedWallet) {
   dispatch('getWalletFromDB', wallet?.accounts?.[0]?.address)
   await dispatch('getBnbBalance')
 
-  babyDogeContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationBabyDogeBalance', balance))
-  busdContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationBusdBalance', balance))
-  usdcContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationUsdcBalance', balance))
-  usdtContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationUsdtBalance', balance))
+  await babyDogeContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationBabyDogeBalance', balance))
+  await busdContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationBusdBalance', balance))
+  await usdcContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationUsdcBalance', balance))
+  await usdtContract.getBalance(wallet.accounts?.[0]?.address).then(balance => commit('mutationUsdtBalance', balance))
+  commit('mutationDefaultSwapCoin')
 }
 
 export async function getWalletFromDB ({ commit, dispatch }, address) {

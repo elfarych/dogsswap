@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import settings from './modules/settings'
 import wallet from './modules/wallet'
+import chart from './modules/chart'
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation;
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       settings,
-      wallet
+      wallet,
+      chart
     },
 
     // enable strict mode (adds overhead!)
