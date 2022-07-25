@@ -90,3 +90,11 @@ export function mutationDefaultWallet (state) {
     formattedWorkBalance: null
   }
 }
+
+export function mutationDefaultSwapCoin (state) {
+  let coin = 'BUSD'
+  if (state.usdtBalance > state.busdBalance) coin = 'USDT'
+  if (state.usdcBalance > state.usdtBalance && state.usdcBalance > state.busdBalance) coin = 'USDC'
+
+  state.defaultSwapCoin = coin
+}

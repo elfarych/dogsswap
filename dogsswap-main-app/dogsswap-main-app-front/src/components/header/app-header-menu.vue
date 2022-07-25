@@ -3,7 +3,7 @@
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
-    to="/"
+    to="/?s=DOGS-BUSD"
   >
     <q-item-section>Trade</q-item-section>
   </q-item>
@@ -11,7 +11,7 @@
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
-    to="/earn"
+    @click="notif('Earn')"
   >
     <q-item-section>Earn</q-item-section>
   </q-item>
@@ -19,45 +19,26 @@
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
-    to="/farm"
+    @click="notif('Farm')"
   >
     <q-item-section>Farm</q-item-section>
   </q-item>
 
-<!--  <q-btn-->
-<!--    label="Earn"-->
-<!--    no-caps-->
-<!--    dense-->
-<!--    flat-->
-<!--    class="q-ml-lg text-subtitle2 text-bold"-->
-<!--  />-->
-<!--  <q-btn-->
-<!--    label="Buy BNB"-->
-<!--    no-caps-->
-<!--    dense-->
-<!--    flat-->
-<!--    class="q-ml-lg text-subtitle2 text-bold"-->
-<!--  />-->
-<!--  <q-btn-->
-<!--    label="Buy ETH"-->
-<!--    no-caps-->
-<!--    dense-->
-<!--    flat-->
-<!--    class="q-ml-lg text-subtitle2 text-bold"-->
-<!--  />-->
-<!--  <q-btn-->
-<!--    label="Buy BTC"-->
-<!--    no-caps-->
-<!--    dense-->
-<!--    flat-->
-<!--    class="q-ml-lg text-subtitle2 text-bold"-->
-<!--  />-->
 </div>
 </template>
 
 <script>
+import notifier from 'src/utils/notifier'
 export default {
-  name: 'app-header-menu'
+  name: 'app-header-menu',
+  methods: {
+    notif (val) {
+      notifier({
+        message: `${val} is coming sun.`,
+        color: 'accent'
+      })
+    }
+  }
 }
 </script>
 

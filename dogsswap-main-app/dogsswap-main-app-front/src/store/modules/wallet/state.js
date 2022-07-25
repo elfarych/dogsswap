@@ -8,6 +8,8 @@ export default function () {
     dogeBalance: null,
     dogsBalance: 3500,
     dogsPrice: 0.07,
+    defaultSwapCoin: 'BUSD',
+    defaultCoin: null,
     wallet: {
       address: null,
       chainId: null,

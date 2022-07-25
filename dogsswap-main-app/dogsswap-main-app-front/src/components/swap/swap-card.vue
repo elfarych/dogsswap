@@ -1,5 +1,14 @@
 <template>
   <div class="swap-card q-px-md">
+    <div v-if="$mobile" class="absolute-top-left q-pa-md">
+      <q-btn
+        dense
+        flat
+        round
+        :icon="chartMode ? 'close' : 'bar_chart'"
+        @click="chartMode = !chartMode"
+      />
+    </div>
     <div class="absolute-top-right q-pa-md">
       <q-slide-transition transition-show="">
         <q-btn
@@ -23,15 +32,19 @@
     </div>
 
     <div>
-      <div class="text-center text-extra-bold q-mt-md text-h5">{{ settingsMode ? 'Settings' : 'Swap' }}</div>
+      <div class="text-center text-extra-bold q-mt-md text-h5">{{ settingsMode ? 'Settings' : chartMode ? 'DOGS' : 'Swap' }}</div>
     </div>
 
     <div v-show="settingsMode">
       <swap-settings/>
     </div>
 
-    <div v-show="!settingsMode" class="q-mt-xl">
+    <div v-show="!settingsMode && !chartMode" class="q-mt-xl">
       <swap-coins/>
+    </div>
+
+    <div v-if="chartMode">
+      <mobile-chart />
     </div>
 
   </div>
@@ -43,16 +56,18 @@ import walletConnect from 'components/wallet/wallet-connect/wallet-connect'
 import { mapState } from 'vuex'
 import notifier from 'src/utils/notifier'
 import SwapCoins from 'components/swap/swap-coins'
+import MobileChart from 'components/chart/mobile-chart'
 
 export default {
   name: 'swap-card',
-  components: { SwapCoins, SwapSettings },
+  components: { MobileChart, SwapCoins, SwapSettings },
   computed: {
     ...mapState('wallet', ['wallet'])
   },
   data () {
     return {
-      settingsMode: false
+      settingsMode: false,
+      chartMode: false
     }
   },
   methods: {
@@ -69,8 +84,8 @@ export default {
 <style lang="sass">
 .swap-card
   height: 530px
-  width: 450px
-  max-width: 88%
+  width: 390px
+  max-width: 90%
   background: rgba(39, 38, 44, 0.5)
   border-radius: 25px
   position: relative
