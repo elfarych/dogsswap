@@ -19,7 +19,7 @@
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
-    @click="notif('Farm')"
+    to="/farm"
   >
     <q-item-section>Farm</q-item-section>
   </q-item>

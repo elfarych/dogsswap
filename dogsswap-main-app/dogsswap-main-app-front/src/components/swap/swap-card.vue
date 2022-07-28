@@ -10,6 +10,7 @@
       />
     </div>
     <div class="absolute-top-right q-pa-md">
+
       <q-slide-transition transition-show="">
         <q-btn
           v-if="!settingsMode"
@@ -32,7 +33,9 @@
     </div>
 
     <div>
-      <div class="text-center text-extra-bold q-mt-md text-h5">{{ settingsMode ? 'Settings' : chartMode ? 'DOGS' : 'Swap' }}</div>
+      <div class="text-center text-extra-bold q-mt-md text-h5">
+        {{ settingsMode ? 'Settings' : chartMode ? 'DOGS' : 'Swap' }}
+      </div>
     </div>
 
     <div v-show="settingsMode">

@@ -52,7 +52,6 @@
       <div class="col-12">
         <small v-if="wallet.address">Balance: {{ dogsBalance | numberFormatter }} DOGS</small>
       </div>
-
     </div>
 
 <!--    Coin 2-->
@@ -74,10 +73,9 @@
             <template v-slot:loading></template>
           </q-img>
           <div class="text-subtitle1 text-extra-bold q-ml-sm">{{ coin2.name }}</div>
-                <q-icon name="arrow_drop_down"/>
+          <q-icon name="arrow_drop_down"/>
         </q-btn>
       </div>
-
     </div>
 
     <div class="q-mt-xs">
@@ -101,7 +99,6 @@
     <div class="absolute-bottom q-pa-md">
       <q-btn
         :label="wallet.address ? 'Swap' : 'Connect wallet'"
-        :icon-right="wallet.address ? 'loop' : 'account_balance_wallet'"
         color="primary"
         :outline="!wallet.address"
         unelevated
@@ -114,6 +111,7 @@
 <!--    Coin Select Dialog-->
     <q-dialog v-model="coinSelectDialog" seamless>
       <q-card style="width: 450px; max-width: 100%; height: 530px">
+
         <q-toolbar class="justify-between">
           <div class="text-subtitle1 text-extra-bold">Select coin</div>
           <q-btn icon="close" dense flat v-close-popup round/>
@@ -122,6 +120,7 @@
         <q-card-section>
           <q-scroll-area style="height: 430px">
             <q-list separator>
+
               <q-item
                 v-for="coin in coins"
                 :key="coin.name"
@@ -141,11 +140,12 @@
                   <small v-if="coin.balance && !coin.isComingSun" class="text-extra-bold absolute-bottom-right text-grey-5">{{ coin.balance | numberFormatter }}</small>
                   <div v-if="coin.isComingSun" class="absolute-bottom-right"><q-chip color="accent" class="glossy">Coming sun</q-chip></div>
                 </q-item-section>
-
               </q-item>
+
             </q-list>
           </q-scroll-area>
         </q-card-section>
+
       </q-card>
     </q-dialog>
   </div>
@@ -256,9 +256,6 @@ export default {
 .swap-coins-coin-logo
   width: 30px
   height: 30px
-
-.swap-button
-  border-radius: 15px
 
 .q-field--outlined .q-field__control
   border-radius: 13px !important

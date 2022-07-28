@@ -4,17 +4,19 @@
     Default Transaction Speed (GWEI)
   </div>
   <q-radio v-model="speed" val="Standart" label="Standart" color="accent"/>
-  <q-radio v-model="speed" val="Fast" label="Fast" class="q-ml-sm" color="accent"/>
-  <q-radio v-model="speed" val="Instant" label="Instant" class="q-ml-sm" color="accent"/>
+  <q-radio v-model="speed" val="Fast" label="Fast" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="speed" val="Instant" label="Instant" class="q-mr-sm" color="accent"/>
 
   <div class="q-mt-lg text-extra-bold">
     Slippage Tolerance
   </div>
   <q-radio v-model="slip" val="0.1%" label="0.1%" color="accent"/>
-  <q-radio v-model="slip" val="0.5%" label="0.5%" class="q-ml-sm" color="accent"/>
-  <q-radio v-model="slip" val="1%" label="1%" class="q-ml-sm" color="accent"/>
-  <q-radio v-model="slip" val="5%" label="5%" class="q-ml-sm" color="accent"/>
-  <q-radio v-model="slip" val="10%" label="10%" class="q-ml-sm" color="accent"/>
+  <q-radio v-model="slip" val="0.5%" label="0.5%" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="slip" val="1%" label="1%" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="slip" val="5%" label="5%" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="slip" val="10%" label="10%" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="slip" val="15%" label="15%" class="q-mr-sm" color="accent"/>
+  <q-radio v-model="slip" val="20%" label="20%" class="q-mr-sm" color="accent"/>
 
   <div class="q-mt-lg text-extra-bold">
     <q-checkbox label="Expert mode" v-model="expert" color="accent" />

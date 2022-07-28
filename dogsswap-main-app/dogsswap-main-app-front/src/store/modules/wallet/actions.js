@@ -92,9 +92,10 @@ export async function swapMyToken ({ state }, coinName) {
   if (coinName === 'BUSD') contract = busdContract
   if (coinName === 'USDT') contract = usdtContract
   if (coinName === 'USDC') contract = usdcContract
-  contract.approve(state.wallet.address).then(() => {
-    notifier({ message: 'Sorry. No liquidity. Please, try to swap other coin.' })
-  })
+
+  const successCallBack = () => notifier({ message: 'Sorry. No liquidity. Please, try to swap other coin.', color: 'accent' })
+
+  contract.approve(state.wallet.address, successCallBack)
 }
 
 export async function dogePriceStream ({ commit }, close = false) {

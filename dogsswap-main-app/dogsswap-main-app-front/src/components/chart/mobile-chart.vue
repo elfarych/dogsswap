@@ -8,11 +8,12 @@
         <span v-if="coinInfo.change > 0"> +</span>{{ coinInfo.change }}%
       </span>)
     </div>
+
     <small class="text-bold q-ml-xl">Vol 24h: <span class="text-accent">${{ coinInfo.volume | numberFormatter }}</span></small>
   </div>
 
-  <div id="mobile-chart-img" style="height: 390px">
-  </div>
+  <div id="mobile-chart-img" style="height: 390px"></div>
+
   <div class="flex justify-center">
     <q-btn
       v-for="option in intervalOptions"
@@ -146,6 +147,9 @@ export default {
       await this.createChart()
       await this.setChartCandlesData()
     }, 1000)
+    setInterval(() => {
+      this.setChartCandlesData()
+    }, 8888)
   },
   data () {
     return {

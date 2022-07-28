@@ -1,6 +1,8 @@
 <template>
   <div>
+
     <div id="chart-img" style="height: 430px"></div>
+
     <div class="flex justify-center">
       <q-btn
       v-for="option in intervalOptions"
@@ -13,6 +15,7 @@
       @click="interval = option"
       />
     </div>
+
   </div>
 
 </template>
@@ -135,6 +138,9 @@ export default {
       await this.createChart()
       await this.setChartCandlesData()
     }, 1000)
+    setInterval(() => {
+      this.setChartCandlesData()
+    }, 8888)
   },
   watch: {
     async interval () {
