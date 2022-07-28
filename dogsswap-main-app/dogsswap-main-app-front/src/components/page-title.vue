@@ -5,7 +5,7 @@
     </div>
 
     <div class="text-h6 text-bold">
-      Stake tokens to earn
+      {{ subTitle }}
     </div>
   </div>
 

@@ -4,13 +4,13 @@
     <q-item
       v-if="wallet.address && balance > 0.05"
       clickable
-      class="cryptobox-btn-item"
+      class="cryptobox-btn-item shadow-2"
       @click="gameBoxHandler"
     >
       <q-item-section avatar><q-img :src="boxImage"/></q-item-section>
       <q-item-section class="text-subtitle1 text-bold" style="line-height: 1.3">
         Open cryptobox
-        <small style="font-weight: 400">You have 1 box</small>
+        <small style="font-weight: 400" class="text-accent">You have 1 box</small>
       </q-item-section>
     </q-item>
 
@@ -54,7 +54,7 @@ export default {
 
 <style lang="sass">
 .cryptobox-btn
-  width: 450px
+  width: 250px
   max-width: 88%
   height: 50px
 

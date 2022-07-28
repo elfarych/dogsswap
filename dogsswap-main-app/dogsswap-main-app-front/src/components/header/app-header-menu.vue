@@ -3,25 +3,28 @@
   <q-item
     class="text-subtitle2 text-bold rounded-xl"
     clickable
-    to="/?s=DOGS-BUSD"
+    :to="{ name: 'home' }"
   >
-    <q-item-section>Trade</q-item-section>
+    <q-item-section><q-icon name="bar_chart" size="20px"/></q-item-section>
+    <q-item-section style="margin-left: -5px">Trade</q-item-section>
   </q-item>
 
   <q-item
-    class="text-subtitle2 text-bold rounded-xl"
+    class="text-subtitle2 text-bold rounded-xl q-ml-sm"
     clickable
-    @click="notif('Earn')"
+    :to="{ name: 'farm' }"
   >
-    <q-item-section>Earn</q-item-section>
+    <q-item-section><q-icon name="percent" size="20px"/></q-item-section>
+    <q-item-section style="margin-left: -1px">Farm</q-item-section>
   </q-item>
 
   <q-item
-    class="text-subtitle2 text-bold rounded-xl"
+    class="text-subtitle2 text-bold rounded-xl q-ml-sm"
     clickable
-    to="/farm"
+    :to="{ name: 'nft' }"
   >
-    <q-item-section>Farm</q-item-section>
+    <q-item-section><q-icon name="storefront" size="20px"/></q-item-section>
+    <q-item-section style="margin-left: 3px">NFT</q-item-section>
   </q-item>
 
 </div>

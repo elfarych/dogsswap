@@ -55,7 +55,6 @@
 
 <script>
 import SwapSettings from 'components/swap/swap-settings'
-import walletConnect from 'components/wallet/wallet-connect/wallet-connect'
 import { mapState } from 'vuex'
 import notifier from 'src/utils/notifier'
 import SwapCoins from 'components/swap/swap-coins'
@@ -78,7 +77,7 @@ export default {
       if (this.wallet.address) {
         return notifier({ message: 'No transactions history.' })
       }
-      return walletConnect()
+      return notifier({ message: 'Connect wallet first.' })
     }
   }
 }

@@ -4,15 +4,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  },
-
-  {
-    path: '/earn',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Earn') }
+      { path: '', name: 'home', component: () => import('pages/Index.vue') }
     ]
   },
 
@@ -20,7 +12,15 @@ const routes = [
     path: '/farm',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Farm') }
+      { path: '', name: 'farm', component: () => import('pages/Farm') }
+    ]
+  },
+
+  {
+    path: '/nft',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', name: 'nft', component: () => import('pages/NFT') }
     ]
   },
 

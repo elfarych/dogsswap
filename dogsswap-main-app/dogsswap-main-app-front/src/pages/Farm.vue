@@ -2,7 +2,7 @@
   <q-page class="page-wrapper">
     <div class="container">
 
-      <page-title title="Farm"/>
+      <page-title title="Farm" sub-title="Stake tokens to earn"/>
 
       <div class="q-mt-xl">
         <div class="row q-col-gutter-md">

@@ -1,4 +1,4 @@
-import dogsLogo from 'assets/doge3.jpg'
+import dogsLogo from 'assets/logo.png'
 import babyDogeLogo from 'src/assets/doge.png'
 import dogeLogo from 'src/assets/dogecoin.png'
 import elonLogo from 'src/assets/elon.png'

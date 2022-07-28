@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import dogsLogo from 'src/assets/app-logo.jpg'
+import dogsLogo from 'src/assets/logo.png'
 import { mapActions, mapState } from 'vuex'
 import onboard from 'components/wallet/wallet-connect/onboard-connect'
 export default {
